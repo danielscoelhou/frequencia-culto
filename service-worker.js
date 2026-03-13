@@ -1,7 +1,8 @@
 const CACHE_NAME = "culto-app";
 
 const urlsToCache = [
-"registro-culto.html"
+"/",
+"/index.html"
 ];
 
 self.addEventListener("install", event => {
