@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<title>Registro de Frequência - Culto</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+background:#f2f2f2;
+margin:0;
+padding:20px;
+}
+
+.container{
+max-width:800px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:8px;
+box-shadow:0 0 8px rgba(0,0,0,0.2);
+}
+
+h1{
+text-align:center;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-bottom:20px;
+}
+
+th, td{
+border:1px solid #ccc;
+padding:8px;
+text-align:center;
+}
+
+input[type=number]{
+width:70px;
+padding:5px;
+text-align:center;
+}
+
+textarea{
+width:100%;
+height:80px;
+}
+
+button{
+padding:10px 20px;
+border:none;
+background:#2e7d32;
+color:white;
+border-radius:5px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1b5e20;
+}
+
+.relatorio{
+background:#fafafa;
+border:1px solid #ccc;
+padding:15px;
+margin-top:20px;
+white-space:pre-line;
+}
+
+.total{
+font-weight:bold;
+background:#eee;
+}
+
+.relatorio{
+user-select: all;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Registro de Frequência - Culto</h1>
+
+<label>Data do Culto:</label>
+<input type="date" id="data">
+
+<h3>Membros</h3>
+
+<table>
+
+<tr>
+<th>Categoria</th>
+<th>Quantidade</th>
+</tr>
+
+<tr><td>Crianças 0-3 (colo)</td><td><input type="number" id="mcc" value=""></td></tr>
+<tr><td>Crianças</td><td><input type="number" id="mc" value=""></td></tr>
+<tr><td>Intermediários</td><td><input type="number" id="mi" value=""></td></tr>
+<tr><td>Adolescentes</td><td><input type="number" id="ma" value=""></td></tr>
+<tr><td>Jovens</td><td><input type="number" id="mj" value=""></td></tr>
+<tr><td>Senhoras</td><td><input type="number" id="ms" value=""></td></tr>
+<tr><td>Varões</td><td><input type="number" id="mv" value=""></td></tr>
+
+<tr class="total">
+<td>Total Membros</td>
+<td id="totalMembros">0</td>
+</tr>
+
+</table>
+
+<h3>Visitantes</h3>
+
+<table>
+
+<tr>
+<th>Categoria</th>
+<th>Quantidade</th>
+</tr>
+
+<tr><td>Crianças 0-3 (Colo)</td><td><input type="number" id="vcc" value=""></td></tr>
+<tr><td>Crianças</td><td><input type="number" id="vc" value=""></td></tr>
+<tr><td>Intermediários</td><td><input type="number" id="vi" value=""></td></tr>
+<tr><td>Adolescentes</td><td><input type="number" id="va" value=""></td></tr>
+<tr><td>Jovens</td><td><input type="number" id="vj" value=""></td></tr>
+<tr><td>Senhoras</td><td><input type="number" id="vs" value=""></td></tr>
+<tr><td>Varões</td><td><input type="number" id="vv" value=""></td></tr>
+
+<tr class="total">
+<td>Total Visitantes</td>
+<td id="totalVisitantes">0</td>
+</tr>
+
+</table>
+
+<h3>Total Geral: <span id="totalGeral">0</span></h3>
+
+<h3>Observações</h3>
+
+<textarea id="obs" placeholder="Ex: Visitantes João, Maria..."></textarea>
+
+<br><br>
+
+<button onclick="gerarRelatorio()">Gerar Relatório</button>
+<button onclick="copiarRelatorio()">Copiar Relatório</button>
+<button onclick="limparCampos()">Limpar Campos</button>
+
+<div class="relatorio" id="relatorio"></div>
+
+</div>
+
+<script>
+
+const inputs = document.querySelectorAll("input[type=number]")
+
+inputs.forEach(i => {
+i.addEventListener("input", calcular)
+})
+
+function calcular(){
+
+let mcc=+document.getElementById("mcc").value
+let mc=+document.getElementById("mc").value
+let mi=+document.getElementById("mi").value
+let ma=+document.getElementById("ma").value
+let mj=+document.getElementById("mj").value
+let ms=+document.getElementById("ms").value
+let mv=+document.getElementById("mv").value
+
+let vcc=+document.getElementById("vcc").value
+let vc=+document.getElementById("vc").value
+let vi=+document.getElementById("vi").value
+let va=+document.getElementById("va").value
+let vj=+document.getElementById("vj").value
+let vs=+document.getElementById("vs").value
+let vv=+document.getElementById("vv").value
+
+let totalMembros = mcc+mc+mi+ma+mj+ms+mv
+let totalVisitantes = vcc+vc+vi+va+vj+vs+vv
+let totalGeral = totalMembros + totalVisitantes
+
+document.getElementById("totalMembros").innerText = totalMembros
+document.getElementById("totalVisitantes").innerText = totalVisitantes
+document.getElementById("totalGeral").innerText = totalGeral
+
+}
+
+function gerarRelatorio(){
+
+calcular()
+
+let data = document.getElementById("data").value
+let obs = document.getElementById("obs").value
+
+let relatorio = `RELATÓRIO DE FREQUÊNCIA - CULTO
+Data: ${data}
+
+MEMBROS
+Crianças 0-3 (Colo): ${mcc.value}
+Crianças: ${mc.value}
+Intermediários: ${mi.value}
+Adolescentes: ${ma.value}
+Jovens: ${mj.value}
+Senhoras: ${ms.value}
+Varões: ${mv.value}
+
+Total de Membros: ${totalMembros.innerText}
+
+VISITANTES
+Crianças 0-3 (Colo): ${vcc.value}
+Crianças: ${vc.value}
+Intermediários: ${vi.value}
+Adolescentes: ${va.value}
+Jovens: ${vj.value}
+Senhoras: ${vs.value}
+Varões: ${vv.value}
+
+Total de Visitantes: ${totalVisitantes.innerText}
+
+TOTAL GERAL: ${totalGeral.innerText}
+
+OBSERVAÇÕES
+${obs}
+`
+
+document.getElementById("relatorio").innerText = relatorio
+
+}
+
+function copiarRelatorio(){
+
+let texto = document.getElementById("relatorio").innerText
+
+let textarea = document.createElement("textarea")
+textarea.value = texto
+
+document.body.appendChild(textarea)
+
+textarea.select()
+textarea.setSelectionRange(0, 99999)
+
+document.execCommand("copy")
+
+document.body.removeChild(textarea)
+
+alert("Relatório copiado com sucesso!")
+
+}
+
+function limparCampos(){
+
+document.getElementById("data").value = ""
+
+document.querySelectorAll("input[type=number]").forEach(input=>{
+input.value = ""
+})
+
+document.getElementById("obs").value = ""
+
+document.getElementById("totalMembros").innerText = 0
+document.getElementById("totalVisitantes").innerText = 0
+document.getElementById("totalGeral").innerText = 0
+
+document.getElementById("relatorio").innerText = ""
+
+}
+
+if ('serviceWorker' in navigator) {
+navigator.serviceWorker.register('service-worker.js');
+}
+
+</script>
+
+</body>
+</html>
