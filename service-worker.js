@@ -1,4 +1,4 @@
-const CACHE_NAME = "culto-app";
+const CACHE_NAME = "culto-app-v2";
 
 const urlsToCache = [
 "/",
