@@ -1,7 +1,7 @@
 {
 "name": "Frequência Culto",
 "short_name": "Culto",
-"start_url": "registro-culto.html",
+"start_url": "./",
 "display": "standalone",
 "background_color": "#ffffff",
 "theme_color": "#2e7d32",
