@@ -198,37 +198,31 @@ function gerarRelatorio(){
 
 calcular()
 
-let data = document.getElementById("data").value
+let dataInput = document.getElementById("data").value
+
+let partes = dataInput.split("-")
+
+let dataFormatada = partes[2] + "/" + partes[1] + "/" + partes[0]
+
 let obs = document.getElementById("obs").value
 
-let relatorio = `RELATÓRIO DE FREQUÊNCIA - CULTO
-Data: ${data}
+let relatorio = `*CULTO: ${dataFormatada}*
 
-MEMBROS
-Crianças 0-3 (Colo): ${mcc.value}
-Crianças: ${mc.value}
-Intermediários: ${mi.value}
-Adolescentes: ${ma.value}
-Jovens: ${mj.value}
-Senhoras: ${ms.value}
-Varões: ${mv.value}
+*Membros/Visitantes*
 
-Total de Membros: ${totalMembros.innerText}
+Crianças 0-3 (Colo): ${mcc.value} / ${vcc.value}
+Crianças: ${mc.value} / ${vc.value}
+Intermediários: ${mi.value} / ${vi.value}
+Adolescentes: ${ma.value} / ${va.value}
+Jovens: ${mj.value} / ${vj.value}
+Senhoras: ${ms.value} / ${vs.value}
+Varões: ${mv.value} / ${vv.value}
 
-VISITANTES
-Crianças 0-3 (Colo): ${vcc.value}
-Crianças: ${vc.value}
-Intermediários: ${vi.value}
-Adolescentes: ${va.value}
-Jovens: ${vj.value}
-Senhoras: ${vs.value}
-Varões: ${vv.value}
+*Total:* ${totalMembros.innerText} / ${totalVisitantes.innerText}
 
-Total de Visitantes: ${totalVisitantes.innerText}
+*Total Geral:* ${totalGeral.innerText}
 
-TOTAL GERAL: ${totalGeral.innerText}
-
-OBSERVAÇÕES
+*Observações:*
 ${obs}
 `
 
