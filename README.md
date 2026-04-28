@@ -33,7 +33,7 @@ Aplicação web offline desenvolvida para registrar a frequência de pessoas em 
 ## 📱 Demonstração
 
 Acesse o sistema online:
-👉 https://seuusuario.github.io/frequencia-culto/
+👉 https://danielscoelhou.github.io/frequencia-culto/
 
 ---
 
